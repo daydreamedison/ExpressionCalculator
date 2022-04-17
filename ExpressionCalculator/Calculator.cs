@@ -79,7 +79,7 @@ namespace ExpressionCalculator
                     op = '/';
                     return true;
                 default:
-                    throw new ArgumentException("Invalid Operator");
+                    throw new ArgumentException("Invalid math operator");
             }
 
         }
@@ -128,6 +128,8 @@ namespace ExpressionCalculator
                 case '*':
                     return num1 * num2;
                 case '/':
+                    if (num2 == 0)
+                        throw new ArgumentException("Unable to divide by zero.");
                     return num1 / num2;
                 default:
                     throw new ArgumentException("Invalid math operator");
