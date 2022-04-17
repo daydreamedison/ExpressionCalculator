@@ -54,5 +54,27 @@ namespace ExpressionCalculatorTest
 
             Assert.Equal(2, result);
         }
+
+        [Theory]
+        [InlineData(" 1 / 0 ")]
+        [InlineData(" 1 / ( 7 - 7 ) ")]
+        public void TestDivideZero(string input)
+        {
+            Action act = () => Calculator.Calculate(input);
+
+            var exception = Assert.Throws<ArgumentException>(act);
+            Assert.Equal("Unable to divide by zero.", exception.Message);
+        }
+
+        [Theory]
+        [InlineData(" 1 ^ 0 ")]
+        [InlineData(" 1 # 23 ")]
+        public void TestWrongOperator(string input)
+        {
+            Action act = () => Calculator.Calculate(input);
+
+            var exception = Assert.Throws<ArgumentException>(act);
+            Assert.Equal("Invalid math operator", exception.Message);
+        }
     }
 }
